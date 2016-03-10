@@ -5,12 +5,12 @@ const webpack = require('webpack')
 const NpmInstallPlugin = require('npm-install-webpack-plugin')
 
 const PATHS = {
-  app: path.join(__dirname, 'src'),
-  build: path.join(__dirname, 'build'),
+  app: path.join(__dirname, 'app'),
+  build: path.join(__dirname, 'public'),
   root: __dirname
 }
 
-var common = {
+const common = {
   entry: {
     app: PATHS.app
   },
@@ -38,10 +38,9 @@ var common = {
 }
 
 if (TARGET === 'start' || !TARGET) {
-  module.exports = Object.assign({}, common, {
-    devtool: 'eval-source-maps',
+  module.exports = Object.assign(common, {
     devServer: {
-      contentBase: PATHS.root,
+      contentBase: PATHS.build,
       historyApiFallback: true,
       hot: true,
       inline: true,
@@ -50,15 +49,16 @@ if (TARGET === 'start' || !TARGET) {
       host: process.env.HOST,
       port: process.env.PORT
     },
+    devtool: 'eval-source-map',
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new NpmInstallPlugin({save: true})
+      new NpmInstallPlugin({
+        save: true // --save
+      })
     ]
   })
 }
 
 if (TARGET === 'build') {
-  module.exports = Object.assign({}, common, {
-
-  })
+  module.exports = Object.assign(common, {})
 }
