@@ -1,0 +1,19 @@
+[
+  {
+    "name" : "",
+    "description" : "",
+    "image" : {
+      "alt" : "",
+      "title" : "",
+      "url" : ""
+    },
+    "cookTime" : "",
+    "cookingMethod" : "",
+    "prepTime" : "",
+    "recipeCategory" : "",
+    "recipeIngredients" : [],
+    "recipeInstructions" : [],
+    "recipeYield" : "",
+    "totalTime" : ""
+  }
+]
