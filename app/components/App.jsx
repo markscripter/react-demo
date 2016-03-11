@@ -1,10 +1,14 @@
 import React from 'react';
-import Recipe from './Recipe.jsx';
+import Header from './Header.jsx';
+import Recipes from './Recipes.jsx';
 
 export default class App extends React.Component {
   render() {
     return (
-      <Recipe />
+      <div>
+        <Header />
+        <Recipes recipes={this.props.recipes}/>
+      </div>
     );
   }
 }

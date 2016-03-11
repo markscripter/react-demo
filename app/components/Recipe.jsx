@@ -1,7 +1,9 @@
 import React from 'react';
 
-export default () => {
-  return (
-    <div className="recipe">Recipes</div>
-  );
-}
+export default React.createClass({
+  render() {
+    return (
+      <li className="recipe">{this.props.item}</li>
+    )
+  }
+})
