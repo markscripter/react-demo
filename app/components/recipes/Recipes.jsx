@@ -1,6 +1,6 @@
 import React from 'react';
-import Recipe from './Recipe.jsx';
-import RecipeStore from '../stores/recipes'
+import Recipe from '../recipe/Recipe.jsx';
+import RecipeStore from './recipeStore'
 
 export default React.createClass({
   render() {

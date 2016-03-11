@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Bacon from 'baconjs'
 import App from './components/App.jsx'
-import RecipesStore from './stores/recipes'
+import RecipesStore from './components/recipes/recipeStore'
 
 const recipesProperty = RecipesStore.toItemsProperty([{
   name: "test"

@@ -1,6 +1,6 @@
 import Bacon from 'baconjs'
 import R from 'ramda'
-import dispatcher from '../_utils/dispatcher'
+import dispatcher from '../../_utils/dispatcher'
 
 export default {
   toItemsProperty(initialItems) {
