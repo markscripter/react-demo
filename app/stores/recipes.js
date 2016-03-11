@@ -45,9 +45,9 @@ export default {
   getRecipes() {
     fetch('/data/recipes.json')
       .then(res => res.json())
-      .then(this.updateStore)
+      .then(updateStore)
   }
 }
 function updateStore(updatedRecipeStore) {
-  updatedRecipeStore ? dispatcher.push('updatedStore', updatedRecipeStore) : 0
+  updatedRecipeStore ? dispatcher.push('updateStore', updatedRecipeStore) : 0
 }
