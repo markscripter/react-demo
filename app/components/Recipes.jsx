@@ -10,13 +10,12 @@ export default React.createClass({
       <section className="recipes">
         <a onClick={this.getUpdatedRecipes}>Get Updated</a>
         <ul>
-        {recipes.map(recipe => <Recipe key={recipe} item={recipe}/>)}
+        {recipes.map(recipe => <Recipe key={recipe.name} item={recipe}/>)}
         </ul>
       </section>
     )
   },
   getUpdatedRecipes(e) {
-    e ? e.preventDefault() : 0;
-    RecipeStore.getRecipes()
+    e ? (e.preventDefault(), RecipeStore.getRecipes()) : 0
   }
 })

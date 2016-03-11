@@ -1,7 +1,6 @@
 import Bacon from 'baconjs'
 import R from 'ramda'
 import dispatcher from '../_utils/dispatcher'
-import recipesHttp from '../_http/recipes'
 
 export default {
   toItemsProperty(initialItems) {
@@ -44,9 +43,9 @@ export default {
   },
 
   getRecipes() {
-    recipesHttp()
+    fetch('/data/recipes.json')
       .then(res => res.json())
-      .then(updateStore)
+      .then(this.updateStore)
   }
 }
 function updateStore(updatedRecipeStore) {

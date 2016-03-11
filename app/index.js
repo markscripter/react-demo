@@ -4,7 +4,12 @@ import Bacon from 'baconjs'
 import App from './components/App.jsx'
 import RecipesStore from './stores/recipes'
 
-const recipesProperty = RecipesStore.toItemsProperty(['test', 'test1'])
+const recipesProperty = RecipesStore.toItemsProperty([{
+  name: "test"
+},
+{
+  name: "test1"
+}])
 
 const appState = Bacon.combineTemplate({
   recipes: recipesProperty,
