@@ -6,11 +6,11 @@ import RecipesStore from './components/recipes/recipeStore'
 
 const recipesProperty = RecipesStore.toItemsProperty([{
   name: "test",
-  id: "4ad40cce-947e-4f06-9d62-babb7986d415"
+  id: "d7d64cc0-6113-4a7d-852c-6e15198bc1ae"
 },
 {
   name: "test1",
-  id: "06022fbd-0b67-4a7f-9911-2df94f8d4285"
+  id: "a43e3efe-c95b-442e-a55f-81aefd139139"
 }])
 
 const appState = Bacon.combineTemplate({
