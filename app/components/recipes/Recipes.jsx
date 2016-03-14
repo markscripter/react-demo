@@ -10,7 +10,7 @@ export default React.createClass({
       <section className="recipes">
         <a onClick={this.getUpdatedRecipes}>Get Updated</a>
         <ul>
-        {recipes.map(recipe => <Recipe key={recipe.name} item={recipe}/>)}
+        {recipes.map(recipe => <Recipe key={recipe.id} item={recipe}/>)}
         </ul>
       </section>
     )
