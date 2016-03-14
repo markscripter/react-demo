@@ -9,7 +9,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   output: {
-    path: PATHS.build,
+    path: PATHS.javascript,
     filename: 'bundle.js'
   },
   module: {

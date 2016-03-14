@@ -43,7 +43,7 @@ export default {
   },
 
   getRecipes() {
-    fetch('/data/recipes.json')
+    fetch('./data/recipes.json')
       .then(res => res.json())
       .then(updateStore)
   }
