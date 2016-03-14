@@ -1,41 +1,8 @@
 [
   {
-    "name" : "test1",
-    "description" : "",
-    "image" : {
-      "alt" : "",
-      "title" : "",
-      "url" : ""
-    },
-    "cookTime" : "",
-    "cookingMethod" : "",
-    "prepTime" : "",
-    "recipeCategory" : "",
-    "recipeIngredients" : [],
-    "recipeInstructions" : [],
-    "recipeYield" : "",
-    "totalTime" : ""
-  },
-  {
-    "name" : "test2",
-    "description" : "",
-    "image" : {
-      "alt" : "",
-      "title" : "",
-      "url" : ""
-    },
-    "cookTime" : "",
-    "cookingMethod" : "",
-    "prepTime" : "",
-    "recipeCategory" : "",
-    "recipeIngredients" : [],
-    "recipeInstructions" : [],
-    "recipeYield" : "",
-    "totalTime" : ""
-  },
-  {
-    "name" : "test3",
-    "description" : "",
+    "name" : "Pancakes",
+    "id" : "eb89706e-f0a0-4acd-89a9-71a57f9658a2",
+    "description" : "Delicious grain-free pancakes.",
     "image" : {
       "alt" : "",
       "title" : "",
