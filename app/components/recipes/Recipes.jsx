@@ -1,8 +1,8 @@
 import React from 'react';
-import Recipe from '../recipe/Recipe.jsx';
-import RecipeStore from './recipeStore'
+import { Recipe } from '../recipe/Recipe.jsx';
+import { getRecipes } from './recipeStore'
 
-export default React.createClass({
+export const Recipes = React.createClass({
   render() {
     const recipes = this.props.recipes;
 
@@ -16,6 +16,8 @@ export default React.createClass({
     )
   },
   getUpdatedRecipes(e) {
-    e ? (e.preventDefault(), RecipeStore.getRecipes()) : 0
+    e
+      ? (e.preventDefault(), getRecipes())
+      : 0
   }
 })

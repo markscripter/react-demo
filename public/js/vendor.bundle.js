@@ -1,4 +1,27 @@
 /******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	var parentJsonpFunction = window["webpackJsonp"];
+/******/ 	window["webpackJsonp"] = function webpackJsonpCallback(chunkIds, moreModules) {
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, callbacks = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId])
+/******/ 				callbacks.push.apply(callbacks, installedChunks[chunkId]);
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			modules[moduleId] = moreModules[moduleId];
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules);
+/******/ 		while(callbacks.length)
+/******/ 			callbacks.shift().call(null, __webpack_require__);
+/******/ 		if(moreModules[0]) {
+/******/ 			installedModules[0] = 0;
+/******/ 			return __webpack_require__(0);
+/******/ 		}
+/******/ 	};
 /******/ 	var parentHotUpdateCallback = this["webpackHotUpdate"];
 /******/ 	this["webpackHotUpdate"] = 
 /******/ 	function webpackHotUpdateCallback(chunkId, moreModules) { // eslint-disable-line no-unused-vars
@@ -54,7 +77,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "92d045f56364ecd2baaa"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "14dce6182c49d817d22b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -249,7 +272,7 @@
 /******/ 			hotSetStatus("prepare");
 /******/ 			hotCallback = callback;
 /******/ 			hotUpdate = {};
-/******/ 			var chunkId = 0;
+/******/ 			for(var chunkId in installedChunks)
 /******/ 			{ // eslint-disable-line no-lone-blocks
 /******/ 				/*globals chunkId */
 /******/ 				hotEnsureUpdateChunk(chunkId);
@@ -524,6 +547,13 @@
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// "0" means "already loaded"
+/******/ 	// Array means "loading", array contains callbacks
+/******/ 	var installedChunks = {
+/******/ 		2:0
+/******/ 	};
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/
@@ -551,6 +581,29 @@
 /******/ 		return module.exports;
 /******/ 	}
 /******/
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId, callback) {
+/******/ 		// "0" is the signal for "already loaded"
+/******/ 		if(installedChunks[chunkId] === 0)
+/******/ 			return callback.call(null, __webpack_require__);
+/******/
+/******/ 		// an array means "currently loading".
+/******/ 		if(installedChunks[chunkId] !== undefined) {
+/******/ 			installedChunks[chunkId].push(callback);
+/******/ 		} else {
+/******/ 			// start chunk loading
+/******/ 			installedChunks[chunkId] = [callback];
+/******/ 			var head = document.getElementsByTagName('head')[0];
+/******/ 			var script = document.createElement('script');
+/******/ 			script.type = 'text/javascript';
+/******/ 			script.charset = 'utf-8';
+/******/ 			script.async = true;
+/******/
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"app","1":"worker"}[chunkId]||chunkId) + ".bundle.js";
+/******/ 			head.appendChild(script);
+/******/ 		}
+/******/ 	};
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -570,50 +623,16 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/*!**********************!*\
-  !*** ./app/index.js ***!
-  \**********************/
+/*!********************!*\
+  !*** multi vendor ***!
+  \********************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(/*! react-dom */ 158);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _baconjs = __webpack_require__(/*! baconjs */ 159);
-	
-	var _baconjs2 = _interopRequireDefault(_baconjs);
-	
-	var _App = __webpack_require__(/*! ./components/App.jsx */ 163);
-	
-	var _App2 = _interopRequireDefault(_App);
-	
-	var _recipeStore = __webpack_require__(/*! ./components/recipes/recipeStore */ 167);
-	
-	var _recipeStore2 = _interopRequireDefault(_recipeStore);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var recipesProperty = _recipeStore2.default.toItemsProperty([{
-	  name: "test",
-	  id: "d7d64cc0-6113-4a7d-852c-6e15198bc1ae"
-	}, {
-	  name: "test1",
-	  id: "a43e3efe-c95b-442e-a55f-81aefd139139"
-	}]);
-	
-	var appState = _baconjs2.default.combineTemplate({
-	  recipes: recipesProperty
-	});
-	
-	appState.onValue(function (state) {
-	  _reactDom2.default.render(_react2.default.createElement(_App2.default, state), document.getElementById('recipesApp'));
-	});
+	__webpack_require__(/*! baconjs */159);
+	__webpack_require__(/*! ramda */168);
+	__webpack_require__(/*! react */1);
+	module.exports = __webpack_require__(/*! dispatcher */169);
+
 
 /***/ },
 /* 1 */
@@ -20679,18 +20698,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 158 */
-/*!******************************!*\
-  !*** ./~/react-dom/index.js ***!
-  \******************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = __webpack_require__(/*! react/lib/ReactDOM */ 3);
-
-
-/***/ },
+/* 158 */,
 /* 159 */
 /*!*********************************!*\
   !*** ./~/baconjs/dist/Bacon.js ***!
@@ -24132,268 +24140,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 163 */
-/*!********************************!*\
-  !*** ./app/components/App.jsx ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Header = __webpack_require__(/*! ./header/Header.jsx */ 164);
-	
-	var _Header2 = _interopRequireDefault(_Header);
-	
-	var _Recipes = __webpack_require__(/*! ./recipes/Recipes.jsx */ 165);
-	
-	var _Recipes2 = _interopRequireDefault(_Recipes);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var App = function (_React$Component) {
-	  _inherits(App, _React$Component);
-	
-	  function App() {
-	    _classCallCheck(this, App);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
-	  }
-	
-	  _createClass(App, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_Header2.default, null),
-	        _react2.default.createElement(_Recipes2.default, { recipes: this.props.recipes })
-	      );
-	    }
-	  }]);
-	
-	  return App;
-	}(_react2.default.Component);
-	
-	exports.default = App;
-
-/***/ },
-/* 164 */
-/*!******************************************!*\
-  !*** ./app/components/header/Header.jsx ***!
-  \******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function () {
-	  return _react2.default.createElement(
-	    'header',
-	    null,
-	    _react2.default.createElement(
-	      'nav',
-	      null,
-	      _react2.default.createElement(
-	        'ul',
-	        null,
-	        _react2.default.createElement(
-	          'li',
-	          null,
-	          'Browse Recipes'
-	        ),
-	        _react2.default.createElement(
-	          'li',
-	          null,
-	          'Search Recipes'
-	        )
-	      )
-	    )
-	  );
-	};
-
-/***/ },
-/* 165 */
-/*!********************************************!*\
-  !*** ./app/components/recipes/Recipes.jsx ***!
-  \********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Recipe = __webpack_require__(/*! ../recipe/Recipe.jsx */ 166);
-	
-	var _Recipe2 = _interopRequireDefault(_Recipe);
-	
-	var _recipeStore = __webpack_require__(/*! ./recipeStore */ 167);
-	
-	var _recipeStore2 = _interopRequireDefault(_recipeStore);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _react2.default.createClass({
-	  displayName: 'Recipes',
-	  render: function render() {
-	    var recipes = this.props.recipes;
-	
-	    return _react2.default.createElement(
-	      'section',
-	      { className: 'recipes' },
-	      _react2.default.createElement(
-	        'a',
-	        { onClick: this.getUpdatedRecipes },
-	        'Get Updated'
-	      ),
-	      _react2.default.createElement(
-	        'ul',
-	        null,
-	        recipes.map(function (recipe) {
-	          return _react2.default.createElement(_Recipe2.default, { key: recipe.id, item: recipe });
-	        })
-	      )
-	    );
-	  },
-	  getUpdatedRecipes: function getUpdatedRecipes(e) {
-	    e ? (e.preventDefault(), _recipeStore2.default.getRecipes()) : 0;
-	  }
-	});
-
-/***/ },
-/* 166 */
-/*!******************************************!*\
-  !*** ./app/components/recipe/Recipe.jsx ***!
-  \******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _react2.default.createClass({
-	  displayName: "Recipe",
-	  render: function render() {
-	    var recipe = this.props.item;
-	
-	    return _react2.default.createElement(
-	      "li",
-	      { className: "recipe" },
-	      recipe.name
-	    );
-	  }
-	});
-
-/***/ },
-/* 167 */
-/*!***********************************************!*\
-  !*** ./app/components/recipes/recipeStore.js ***!
-  \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _baconjs = __webpack_require__(/*! baconjs */ 159);
-	
-	var _baconjs2 = _interopRequireDefault(_baconjs);
-	
-	var _ramda = __webpack_require__(/*! ramda */ 168);
-	
-	var _ramda2 = _interopRequireDefault(_ramda);
-	
-	var _dispatcher = __webpack_require__(/*! ../../_utils/dispatcher */ 169);
-	
-	var _dispatcher2 = _interopRequireDefault(_dispatcher);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = {
-	  toItemsProperty: function toItemsProperty(initialItems) {
-	    return _baconjs2.default.update(initialItems, [_dispatcher2.default.stream('add')], AddRecipe, [_dispatcher2.default.stream('remove')], RemoveRecipe, [_dispatcher2.default.stream('update')], UpdateRecipe, [_dispatcher2.default.stream('updateStore')], UpdatedRecipeStore);
-	
-	    function AddRecipe(recipes, recipe) {
-	      return recipes.concat(recipe);
-	    }
-	
-	    function RemoveRecipe(recipes, id) {
-	      return _ramda2.default.reject(function (recipe) {
-	        return recipe.id !== id;
-	      }, recipes);
-	    }
-	
-	    function UpdateRecipe(recipes, updatedRecipe) {
-	      return _ramda2.default.map(function (recipe) {
-	        return recipe.id === updatedRecipe.id ? _ramda2.default.merge(recipe, updatedRecipe) : recipe;
-	      }, recipes);
-	    }
-	
-	    function UpdatedRecipeStore(recipes, updatedRecipeStore) {
-	      return updatedRecipeStore;
-	    }
-	  },
-	  addRecipe: function addRecipe(recipe) {
-	    recipe ? _dispatcher2.default.push('add', recipe) : 0;
-	  },
-	  removeRecipe: function removeRecipe(id) {
-	    id ? _dispatcher2.default.push('remove', id) : 0;
-	  },
-	  updateRecipe: function updateRecipe(recipe) {
-	    recipe ? _dispatcher2.default.push('update', recipe) : 0;
-	  },
-	  getRecipes: function getRecipes() {
-	    fetch('./data/recipes.json').then(function (res) {
-	      return res.json();
-	    }).then(updateStore);
-	  }
-	};
-	
-	function updateStore(updatedRecipeStore) {
-	  updatedRecipeStore ? _dispatcher2.default.push('updateStore', updatedRecipeStore) : 0;
-	}
-
-/***/ },
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */,
 /* 168 */
 /*!*******************************!*\
   !*** ./~/ramda/dist/ramda.js ***!
@@ -32850,45 +32601,32 @@
 
 /***/ },
 /* 169 */
-/*!**********************************!*\
-  !*** ./app/_utils/dispatcher.js ***!
-  \**********************************/
+/*!*************************!*\
+  !*** ./~/dispatcher.js ***!
+  \*************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	const Bacon = __webpack_require__(/*! baconjs */ 159);
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	let busCache = {}
 	
-	var _baconjs = __webpack_require__(/*! baconjs */ 159);
+	const bus = function bus(name) {
+	  return busCache[name] = busCache[name] || new Bacon.Bus()
+	}
 	
-	var _baconjs2 = _interopRequireDefault(_baconjs);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Dispatcher = function Dispatcher() {
-	  var busCache = {};
-	
-	  return {
-	    stream: function stream(name) {
-	      return bus(name);
-	    },
-	    push: function push(name, value) {
-	      bus(name).push(value);
-	    },
-	    plug: function plug(name, value) {
-	      bus(name).plug(value);
-	    }
-	  };
-	
-	  function bus(name) {
-	    return busCache[name] = busCache[name] || new _baconjs2.default.Bus();
+	module.exports = {
+	  stream: function(name) {
+	    return bus(name)
+	  },
+	  push: function(name, value) {
+	    bus(name).push(value)
+	  },
+	  plug: function(name, value) {
+	    bus(name).plug(value)
 	  }
-	};
-	
-	exports.default = Dispatcher();
+	}
+
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=vendor.bundle.js.map

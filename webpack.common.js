@@ -3,14 +3,16 @@ const PATHS = require('./webpack.paths')
 
 module.exports = {
   entry: {
-    app: PATHS.app
+    app: PATHS.app,
+    // worker: PATHS.app + '/worker.js',
+    vendor: ['baconjs', 'ramda', 'react', 'dispatcher']
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
   output: {
     path: PATHS.javascript,
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
   module: {
     loaders: [
@@ -21,7 +23,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        loaders: ['babel?cacheDirectory'],
+        loaders: ['babel'],
         include: PATHS.app
       }
     ]

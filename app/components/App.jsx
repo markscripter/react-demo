@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from './header/Header.jsx';
-import Recipes from './recipes/Recipes.jsx';
+import { Header } from './header/Header.jsx';
+import { Recipes } from './recipes/Recipes.jsx';
 
-export default class App extends React.Component {
+export class App extends React.Component {
   render() {
     return (
       <div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default React.createClass({
+export const Recipe = React.createClass({
   render() {
     const recipe = this.props.item;
 
