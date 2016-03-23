@@ -42,10 +42,15 @@ webpackJsonp([0],{
 	  _reactDom2.default.render(_react2.default.createElement(_App.App, state), document.getElementById('recipesApp'));
 	});
 	
-	__webpack_require__.e/* nsure */(1/*! worker */, function (require) {
-	  var a = __webpack_require__(/*! node-uuid */ 170).v4();
-	  console.log(a);
-	});
+	if (window.location.pathname === '/feed') {
+	  __webpack_require__.e/* nsure */(1, function () {
+	    __webpack_require__(/*! ./feed */ 170).show();
+	  });
+	} else if (window.location.pathname === '/worker') {
+	  __webpack_require__.e/* nsure */(2, function () {
+	    __webpack_require__(/*! ./worker */ 171).show();
+	  });
+	}
 
 /***/ },
 

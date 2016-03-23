@@ -2,11 +2,10 @@ const NpmInstallPlugin = require('npm-install-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
 const common = require('./webpack.common')
-const PATHS = require('./webpack.paths')
 
 module.exports = Object.assign(common, {
   devServer: {
-    contentBase: PATHS.build,
+    contentBase: './public',
     historyApiFallback: true,
     hot: true,
     inline: true,

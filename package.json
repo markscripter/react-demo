@@ -11,13 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "baconjs": "^0.7.83",
+    "baconjs": "^0.7.84",
     "ramda": "^0.19.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
   },
   "devDependencies": {
-    "babel-core": "^6.7.0",
+    "babel-core": "^6.7.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-array-includes": "^2.0.2",
     "babel-plugin-syntax-class-properties": "^6.3.13",
@@ -36,6 +36,6 @@
     "style-loader": "^0.13.0",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
-    "webpack-merge": "^0.8.3"
+    "webpack-merge": "^0.8.4"
   }
 }

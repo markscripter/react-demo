@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./app/worker/index.js"],"names":[],"mappings":";;;;;;;;;;AAAA,QAAO,OAAP,GAAiB;AACf,SAAM,gBAAU;AACd,aAAQ,GAAR,CAAY,QAAZ,EADc;IAAV;EADR,C","file":"2.2.bundle.js","sourcesContent":["module.exports = {\n  show: function(){\n    console.log('worker')\n  }\n}\n\n\n\n/** WEBPACK FOOTER **\n ** ./app/worker/index.js\n **/"],"sourceRoot":""}

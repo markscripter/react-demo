@@ -20,3 +20,13 @@ const appState = Bacon.combineTemplate({
 appState.onValue(state => {
   ReactDOM.render(<App {...state}/>, document.getElementById('recipesApp'))
 })
+
+if (window.location.pathname === '/feed') {
+  require.ensure([], function() {
+    require('./feed').show();
+  })
+} else if (window.location.pathname === '/worker') {
+  require.ensure([], function() {
+    require('./worker').show();
+  })
+}

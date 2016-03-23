@@ -77,7 +77,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "14dce6182c49d817d22b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "621d538a611b1f40eb59"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -551,7 +551,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		2:0
+/******/ 		3:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -600,7 +600,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"app","1":"worker"}[chunkId]||chunkId) + ".bundle.js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"app"}[chunkId]||chunkId) + ".bundle.js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -612,7 +612,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/js/";
 /******/
 /******/ 	// __webpack_hash__
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
@@ -20713,7 +20713,7 @@
 	  }
 	};
 	
-	Bacon.version = '0.7.83';
+	Bacon.version = '0.7.84';
 	
 	var Exception = (typeof global !== "undefined" && global !== null ? global : this).Error;
 	var nop = function () {};
@@ -23606,6 +23606,7 @@
 	  var onHold = false;
 	  var bufferedValues = [];
 	  var src = this;
+	  var srcIsEnded = false;
 	  return new EventStream(new Bacon.Desc(this, "holdWhen", [valve]), function (sink) {
 	    var composite = new CompositeUnsubscribe();
 	    var subscribed = false;
@@ -23630,6 +23631,10 @@
 	                value = toSend[i];
 	                result.push(sink(nextEvent(value)));
 	              }
+	              if (srcIsEnded) {
+	                result.push(sink(endEvent()));
+	                unsubMe();
+	              }
 	              return result;
 	            })();
 	          }
@@ -23645,6 +23650,7 @@
 	        if (onHold && event.hasValue()) {
 	          return bufferedValues.push(event.value());
 	        } else if (event.isEnd() && bufferedValues.length) {
+	          srcIsEnded = true;
 	          return endIfBothEnded(unsubMe);
 	        } else {
 	          return sink(event);

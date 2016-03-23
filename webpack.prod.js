@@ -3,7 +3,8 @@ const PATHS = require('./webpack.paths')
 
 module.exports = Object.assign(common, {
   output: {
-    path: PATHS.javascript,
-    filename: 'bundle.[hash].js'
+    path: './public/js/',
+    filename: 'bundle.[hash].js',
+    publicPath: '/js/'
   }
 })
